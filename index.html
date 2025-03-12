@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Cumpleaños</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Mover la carta más arriba */
+            height: 100vh;
+            background-color: #ffebcd;
+            font-family: Arial, sans-serif;
+            margin: 0; /* Evitar scroll */
+            overflow: hidden; /* Evitar scroll */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .card {
+            width: 350px;
+            height: auto;
+            position: relative;
+            perspective: 1000px;
+            cursor: pointer;
+            margin-top: 50px; /* Ajustar la posición vertical */
+        }
+        .front, .inside {
+            width: 100%;
+            min-height: 250px;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 1s;
+            padding: 20px;
+            background-size: cover; /* Ajustar el tamaño de la imagen de fondo */
+            background-position: center; /* Centrar la imagen de fondo */
+        }
+        .front {
+            background-color: bisque;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;  
+        }
+        .inside {
+            background-color: bisque;
+            transform: rotateY(180deg);
+            font-size: 16px;
+        }
+        .inside p {
+            margin: 10px 0;
+        }
+        .card.open .front {
+            transform: rotateY(180deg);
+        }
+        .card.open .inside {
+            transform: rotateY(0);
+        }
+        .flowers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .card.open .flowers {
+            opacity: 1;
+        }
+        .flower {
+            width: 30px;
+            height: 30px;
+            background: url('https://image.shutterstock.com/image-vector/flower-icon-vector-260nw-600w-1031046000.jpg') no-repeat center center;
+            background-size: contain;
+            animation: float 2s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="card" onclick="openCard()">
+        <div class="front">🎁 ¡Toca para abrir tu sorpresa! 🎉</div>
+        <div class="inside">
+            <h2>🎂 ¡Feliz Cumpleaños! 🎈</h2>
+            <p><strong>Querido/a [Nombre],</strong></p>
+            <p>En este día tan especial, quiero desearte toda la felicidad del mundo. Que cada instante de tu vida esté lleno de amor, alegría y momentos inolvidables.</p>
+            <p>Eres una persona increíble y deseo con todo mi corazón que este año te traiga todo lo que anhelas.</p>
+            <p><strong>Quiero que sepas que te amo con todo mi corazón, eres mi mayor felicidad y mi razón de sonreír cada día.</strong></p>
+            <p>Gracias por existir y hacer mi vida más hermosa.</p>
+            <p>Con todo mi cariño,</p>
+            <p>💖 Tu persona especial 💖</p>
+        </div>
+        <div class="flowers">
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+            <div class="flower"></div>
+        </div>
+    </div>
+    <script>
+        function openCard() {
+            document.querySelector('.card').classList.toggle('open');
+            if (document.querySelector('.card').classList.contains('open')) {
+                createFlowerAnimation();
+            }
+        }
+
+        function createFlowerAnimation() {
+            const flowers = document.querySelectorAll('.flower');
+            flowers.forEach((flower, index) => {
+                flower.style.animationDelay = `${index * 0.2}s`;
+            });
+        }
+    </script>
+</body>
+</html>
